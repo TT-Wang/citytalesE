@@ -17,7 +17,12 @@ Page({
     latitude: 23.099994,
     longitude: 113.324520,
     markers: [],
-    subkey: undefined
+    subkey: undefined,
+    polyline: [{
+      points: [],
+      color: "#0091ff",
+      width: 6
+    }]
   },
 
   navigateToShow(e) {
@@ -27,31 +32,49 @@ Page({
     })
   },
 
-  markerTap: function(event) {
-    this.setMarkers(this.data.stories)
-    let current_story = this.data.stories.find(story => story.id == event.markerId);
-    this.setData({ current_story })
-
-    let markers = this.data.markers
-    let index = this.data.stories.findIndex(story => story.id == event.markerId);
-    markers[index].width = 60
-    markers[index].height = 60
-    this.setData({markers})
-
-    // let latitude = markers[index].latitude
-    // let longitude = markers[index].longitude
-    // this.setData({latitude})
-    // this.setData({longitude})
-    // console.log('markertap', latitude, longitude)
-    // this.mapCtx = wx.createMapContext('myMap')
-    // this.mapCtx.moveToLocation()
-    
-    // wx.chooseLocation({
-    //   success: function (res) {
-    //     console.log(res)
-    //   }
-    // })
+  navigateToPost() {
+    wx.navigateTo({
+      url: `/pages/post/post`
+    })
   },
+
+  markerTap: function (event) {
+    let that = this
+
+    if (!(that.data.current_story === undefined)) {
+      if (event.markerId === that.data.current_story.id) {
+        let markers = that.data.markers
+        let index = that.data.stories.findIndex(story => story.id === that.data.current_story.id)
+        markers[index].width = 40
+        markers[index].height = 40
+        that.setData({ markers })
+        let current_story = false
+        that.setData({ current_story })
+      } else {
+        that.setMarkers(that.data.stories)
+        let current_story = that.data.stories.find(story => story.id === event.markerId);
+        that.setData({ current_story })
+
+        let markers = that.data.markers
+        let index = that.data.stories.findIndex(story => story.id === event.markerId);
+        markers[index].width = 60
+        markers[index].height = 60
+        that.setData({ markers })
+      }
+    } else {
+      that.setMarkers(that.data.stories)
+      let current_story = that.data.stories.find(story => story.id === event.markerId);
+      that.setData({ current_story })
+
+      let markers = that.data.markers
+      let index = that.data.stories.findIndex(story => story.id === event.markerId);
+      markers[index].width = 60
+      markers[index].height = 60
+      that.setData({ markers })
+    }
+  },
+
+
 
   mapTap: function(event) {
     let markers = this.data.markers
@@ -71,7 +94,7 @@ Page({
         id: story.id,
         latitude: story.latitude,
         longitude: story.longitude,
-        name: story.title,
+        //name: story.title,
         iconPath: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5c01ybmL4zj.png',
         width: 40,
         height: 40
@@ -99,7 +122,109 @@ Page({
   },
 
   setItems: function () {
-  
+    if (this.data.apple) {
+      let items = [
+       {
+         type: 'sort',
+         label: '距离',
+         value: 'distance',
+         groups: ['001'],
+       },
+       {
+         type: 'sort',
+         label: '喜欢',
+         value: 'people_liked',
+         groups: ['002'],
+       },
+       {
+         type: 'sort',
+         label: '评论',
+         value: 'people_commented',
+         groups: ['003'],
+       },
+       {
+         type: 'filter',
+         label: '筛选',
+         value: 'filter',
+         checked: true,
+         children: [
+           {
+             type: 'radio',
+             label: '距离',
+             value: '距离',
+             children: [{
+               label: '500米',
+               value: '500',
+             },
+             {
+               label: '1000米',
+               value: '1000',
+             },
+             {
+               label: '2000米',
+               value: '2000',
+             },
+             {
+               label: '5000米',
+               value: '4999_999',
+             },
+             {
+               label: '10公里',
+               value: '9999_999',
+             },
+             {
+               label: '100公里',
+               value: '99999_998',
+             },
+             {
+               label: '全国',
+               value: '3000000000000',
+               checked: true,
+             },
+             ],
+           },
+           {
+             type: 'checkbox',
+             label: 'Tags',
+             value: 'tags',
+             children: [{
+               label: '建筑',
+               value: '建筑',
+               checked: true,
+             },
+             {
+               label: '游览',
+               value: '游览',
+               checked: true,
+             },
+             {
+               label: '历史',
+               value: '历史',
+               checked: true,
+             },
+             {
+               label: '感想',
+               value: '感想',
+               checked: true,
+             },
+             {
+               label: '故事',
+               value: '故事',
+               checked: true,
+             },
+             {
+               label: '摄影',
+               value: '摄影',
+               checked: true,
+             },
+             ],
+           },
+         ],
+         groups: ['001', '002', '003'],
+       },
+     ]
+     this.setData({items})
+  } else {
      let items = [
        {
          type: 'sort',
@@ -164,23 +289,23 @@ Page({
                checked: true,
              },
              {
-               label: '艺术',
-               value: '艺术',
+               label: '游览',
+               value: '游览',
                checked: true,
              },
              {
-               label: '风景',
-               value: '风景',
+               label: '历史',
+               value: '历史',
                checked: true,
              },
              {
-               label: '文学',
-               value: '文学',
+               label: '感想',
+               value: '感想',
                checked: true,
              },
              {
-               label: '音乐',
-               value: '音乐',
+               label: '故事',
+               value: '故事',
                checked: true,
              },
              {
@@ -194,8 +319,8 @@ Page({
          groups: ['001', '002'],
        },
      ]
-    this.setData({ items })
-
+      this.setData({ items })
+  }
   console.log("items", this.data.items)
 },
 
@@ -205,19 +330,47 @@ Page({
 
     query.compare('created_at', '>', 0)
     query.compare('visible', '=', true)
-    Story.setQuery(query).find().then(res => {
+    Story.setQuery(query).limit(1000).find().then(res => {
       let stories = res.data.objects
       this.setData({stories})
       this.setMarkers(res.data.objects)
       this.setData({stories})
       this.getStoriesWithDistance(stories) // for dealing with distances
+
+
+
+      // this.setRoute(['5def30c710897c591a33db79', '5dfa30a3d69d0e2f684527e0', '5dfa22f4ea947d41e9068083', '5dfa323fd69d0e084b899dfb', '5dfa35d0d69d0e5fe0453b21']) // Calculating Routes SWITCH
     })
   },
 
+  savePolylineToBackend: function() {
+    let that = this
+    let polyline = that.data.polyline
+    let polylineLatitudeArr = polyline[0].points.map(point => {return point.latitude}) // !!! SWITCH (1)
+    // let polylineLatitudeArr = [] // !!! SWITCH (2)
+    console.log('polylineLatitudeArr ------>', polylineLatitudeArr)
+    let polylineLongitudeArr = polyline[0].points.map(point => { return point.longitude }) // !!! SWITCH (1)
+    // let polylineLongitudeArr = [] // !!! SWITCH (2)
+    console.log('polylineLongitudeArr ------>', polylineLongitudeArr)
+    console.log('typeof polylineLongitudeArrayElement ------->', typeof(polylineLongitudeArr[5]))
+
+    let Walk = new wx.BaaS.TableObject('walk')
+    let dbWalk = Walk.getWithoutData('5dfb7d1b3937280d88e4e71f') // CAREFUL!!! TO BE CHANGED MANUALLY // SWITCH
+
+    dbWalk.set("polyline_latitude", polylineLatitudeArr)
+    dbWalk.set("polyline_longitude", polylineLongitudeArr)
+    dbWalk.update().then(res => {
+      console.log('result of polyline DB Save ---------->', res)
+    }, err => {
+    })
+  },
+
+
   jumpToCurrentLocation: function() {
     this.mapCtx.moveToLocation()
-    let scale = 16
-    this.setData({scale: scale})
+    // let scale = 16
+    // this.setData({scale: scale})
+    // this.savePolylineToBackend() // SWITCH FOR MANIPULATING BACKEND!!
   },
   
   zoomIn: function () {
@@ -279,8 +432,6 @@ Page({
           let filteredByTopTags = storiesWithDistance.filter(function (item) {
             if (item.tags === undefined) {
               return false
-            } else if (that.data.topTags === undefined){
-              return false
             } else {
             return (that.data.topTags.some(t => item.tags.indexOf(t) !== -1))
             }
@@ -333,7 +484,7 @@ Page({
     let UserStory = new wx.BaaS.TableObject('user_story')
     query.compare('user', '=', userId)
     query.compare('visible', '=', true)
-    UserStory.setQuery(query).expand(['story']).find().then(res => {
+    UserStory.setQuery(query).expand(['story']).limit(1000).find().then(res => {
       let userTagsArray = [] // (1) creating a huge array for all tags of user, weighted double for saved stories
       let specUserStories = res.data.objects;
       let filteredSpecUserStories = specUserStories.filter(function (item) {
@@ -347,10 +498,10 @@ Page({
 
       let userPrefs = [ // (2) counting occurrence of tags within storiesSaved array
         { name: '建筑', occurrence: this.getOccurrence(userTagsArray, "建筑") },
-        { name: '艺术', occurrence: this.getOccurrence(userTagsArray, "艺术") },
-        { name: '风景', occurrence: this.getOccurrence(userTagsArray, "风景") },
-        { name: '文学', occurrence: this.getOccurrence(userTagsArray, "文学") },
-        { name: '音乐', occurrence: this.getOccurrence(userTagsArray, "音乐") },
+        { name: '游览', occurrence: this.getOccurrence(userTagsArray, "游览") },
+        { name: '历史', occurrence: this.getOccurrence(userTagsArray, "历史") },
+        { name: '感想', occurrence: this.getOccurrence(userTagsArray, "感想") },
+        { name: '故事', occurrence: this.getOccurrence(userTagsArray, "故事") },
         { name: '摄影', occurrence: this.getOccurrence(userTagsArray, "摄影") },
       ] 
     
@@ -383,12 +534,12 @@ Page({
     return filteredArray.length
   },
 
-  getRoute: function() {
+  setRouteSnippet: function(startStory, endStory) {
     let that = this
     qqmapsdk.direction({
       mode: 'walking',
-      from: { latitude: 22.522807, longitude: 113.935338},
-      to: { latitude: 22.528342, longitude: 113.94541},
+      from: { latitude: startStory.latitude, longitude: startStory.longitude},
+      to: { latitude: endStory.latitude, longitude: endStory.longitude},
       success: function (res) {
         console.log('DIRECTION ------->', res)
         let ret = res;
@@ -403,9 +554,15 @@ Page({
           pl.push({ latitude: coors[i], longitude: coors[i + 1] })
         }
         console.log(pl)
+        let polylinePoints = that.data.polyline[0].points
+        if (polylinePoints === undefined) {
+          polylinePoints = pl
+        } else {
+          polylinePoints = polylinePoints.concat(pl)
+        }
         that.setData({
           polyline: [{
-            points: pl,
+            points: polylinePoints,
             color: "#0091ff",
             width: 6
           }]
@@ -420,6 +577,18 @@ Page({
     })
   },
 
+  setRoute(storiesIdArray) {
+    let that = this
+    for (let i = 0; i < (storiesIdArray.length - 1); i += 1) {
+      let startStoryId = storiesIdArray[i]
+      let endStoryId = storiesIdArray[i + 1]
+      let stories = that.data.stories
+      console.log('storiesArray ----->', storiesIdArray[i + 1])
+      let startStory = stories.find(story => story.id === startStoryId)
+      let endStory = stories.find(story => story.id === endStoryId)
+      that.setRouteSnippet(startStory, endStory)
+    }
+  },
 
 
   /**
@@ -429,7 +598,7 @@ Page({
     
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
-      key: '2RTBZ-TCOW4-O2VUZ-X2QBG-BEV5V-3TBVX'
+      key: 'N7OBZ-COD6G-Y5EQV-INTUA-NAEZF-VKFLK'
     });
     this.mapCtx = wx.createMapContext('myMap')
     const that = this
@@ -441,7 +610,6 @@ Page({
         that.setData({ latitude, longitude })
       }
     })
-    this.getRoute()
     // wx.getLocation({
     //   type: 'gcj02', //Returns the latitude and longitude that can be used for wx.openLocation
     //   success(res) {
@@ -455,7 +623,7 @@ Page({
     //     })
     //   }
     // })
-    this.setApple()
+    
   },
 
   /**
@@ -473,8 +641,11 @@ Page({
     if (user) {
       this.setData({ user })
       this.getUserPreferences(user.id)
+      this.setData({ flag: true })
+    } else {
+      this.setStories()
     }
-    
+    this.setApple()
     // this.setStories()
     // this.mapCtx = wx.createMapContext('myMap')
     // const that = this
@@ -488,6 +659,7 @@ Page({
     //   }
     // })
   },
+
 
   // 遮罩层显示
   show: function () {
@@ -559,7 +731,70 @@ Page({
     // this.setStories()
     this.setData({
       current: e.detail.key,
+      current_story: false 
     })
+    } else if(this.data.apple){
+    let distanceChoice = Number.parseInt(e.detail.checkedValues[3][0])
+    let filter = e.detail.checkedValues[3][1]
+    let distanceSorter = e.detail.checkedValues[0]
+    let likesSorter = e.detail.checkedValues[1]
+    let commentsSorter = e.detail.checkedValues[2]
+    this.setData({ filter })
+    console.log("distanceSorter", distanceSorter)
+    console.log("likesSorter", likesSorter)
+    console.log("commentsSorter", commentsSorter)
+    console.log("distanceChoice ---->", distanceChoice)
+    console.log("filter ---->", filter)
+    let storiesWithDistance = this.data.storiesWithDistance
+    let filteredByDistance = storiesWithDistance.filter(function (item) {
+      return item.distance < distanceChoice
+    });
+    let filteredByTags = filteredByDistance.filter(function(item) { // check if there is any overlap in the two arrays (chosen filter and story tags)
+      console.log(item.tags)
+      if (item.tags === undefined) {
+        return false
+      } else {
+        return filter.some(f => item.tags.indexOf(f) !== -1)
+      }
+    });
+    console.log("filteredByDistance ---->", filteredByDistance)
+    console.log("filteredByTags ---->", filteredByTags)
+    
+    
+    if (distanceSorter === (1 || -1)) {
+      if (distanceSorter === -1) {
+        filteredByTags.sort((a, b) => a.distance - b.distance)
+      } else {
+        filteredByTags.sort((a, b) => b.distance - a.distance)
+      }
+    } else if (likesSorter === (1||-1)) {
+      if (likesSorter === -1){
+        filteredByTags.sort((a, b) => a.people_liked - b.people_liked)
+      } else {
+        filteredByTags.sort((a, b) => b.people_liked - a.people_liked)
+      }
+    } else if (commentsSorter === (1||-1)) {
+      if (commentsSorter === -1) {
+        filteredByTags.sort((a, b) => a.people_commented - b.people_commented)
+      } else {
+        filteredByTags.sort((a, b) => b.people_commented - a.people_commented)
+      }
+    } else {
+      filteredByTags.sort((a, b) => a.distance - b.distance)
+    }
+    this.setDisplayDistance(filteredByTags)
+    this.setData({filteredByTags: filteredByTags})
+    // let query = new wx.BaaS.Query()
+    // query.in('tags', filter)
+    // let Product = new wx.BaaS.TableObject("story")
+    // Product.setQuery(query).find().then(res => {
+    //   // success
+    //   console.log('result --->',  res)
+    //   let filteredStories = res.data.objects
+    //   this.setData({ filteredStories })
+    // }, err => {
+    //   // err
+    // })
     } else {
       let distanceChoice = Number.parseInt(e.detail.checkedValues[2][0])
       let filter = e.detail.checkedValues[2][1]
@@ -576,11 +811,7 @@ Page({
       });
       let filteredByTags = filteredByDistance.filter(function (item) {
         console.log(item.tags)
-        if (item.tags === undefined) {
-          return false
-        } else {
-          return filter.some(f => item.tags.indexOf(f) !== -1)
-        }
+        return filter.some(f => item.tags.indexOf(f) !== -1)
       });
       console.log("filteredByDistance ---->", filteredByDistance)
       console.log("filteredByTags ---->", filteredByTags)
@@ -603,6 +834,7 @@ Page({
       }
       this.setDisplayDistance(filteredByTags)
       this.setData({ filteredByTags: filteredByTags })
+      
       // let query = new wx.BaaS.Query()
       // query.in('tags', filter)
       // let Product = new wx.BaaS.TableObject("story")
