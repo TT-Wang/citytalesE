@@ -9,6 +9,8 @@
   height: 7vh;
   /* border-bottom: 3rpx solid #cfcfcf; */
   position: fixed;
+  top: 0;
+  z-index: 100;
 }
 
 .left-section {
@@ -31,8 +33,8 @@
   position: fixed;
   height: 200rpx;
   width: 100vw;
-  background-color:#F4F4F4;
-  margin-top: 7vh;
+  background-color:white;
+  /* margin-top: 14vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,6 +134,7 @@
   height: 600rpx;
   background-size: cover;
   background-position: center;
+  margin-top: 7vh;
 }
 
 
@@ -201,7 +204,6 @@
   align-items: center;
   /* background-color: #cfcfcf; */
   width: 100%;
-  border-bottom: 1rpx solid #cfcfcf;
   margin: 10rpx 0;
 }
 
@@ -209,6 +211,9 @@
   display: flex;
   align-items: center;
   width: 90%;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #cfcfcf;
+  padding-bottom: 10rpx;
 }
 
 
@@ -224,7 +229,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: left;
-  width: 90%;
+  width: 100%;
 }
 
 .cmt-info .user-name {
@@ -243,8 +248,8 @@
 
 #delete-btn {
   position: absolute;
-  top: 10rpx;
-  right: 0rpx;
+  top: 7vh;
+  right: 13rpx;
   width: 30vw;
   font-size: 28rpx;
   text-align: center;
@@ -294,7 +299,7 @@
 
 .commentInputView {
   width: 100%;
-  height: 200rpx;
+  height: 15vh;
   background-color: rgba(204, 204, 204, 0.61);
   position: fixed;
   display: flex;
@@ -385,7 +390,7 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100rpx;
+  height: 10vh;
 }
 .postcard-btn {
   background-color: #04B2D9;
@@ -398,9 +403,10 @@
   align-items: center;
   font-weight: bold;
   border-radius: 25rpx;
-  width:45%;
+  width:30vh;
   height: 60rpx;
   margin-bottom: 30rpx;
+  margin-top: 10rpx;
 }
 
 .postcard-img {
@@ -434,46 +440,63 @@ margin-top: 10rpx;
   flex-shrink: 0;
 }
 
-.home-btn {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  float: left;
-  position: fixed;
-  bottom: 110rpx;
-  right: 20rpx;
-  width: 90rpx;
-  height: 90rpx;
-  z-index: 1;
-  background-color: rgba(240, 240, 240, 0.8);
-  border-radius: 4rpx;
-  box-shadow: 0 0 5rpx rgb(100, 100, 100);
+.end-msg {
+  text-align: center;
+  font-weight: lighter;
+  font-size: 20rpx;
+  margin: 40rpx auto;
+  margin-bottom: 150rpx;
 }
 
+.navbar-bottom {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 2rpx solid #cfcfcf;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  height: 100rpx;
+}
+
+.navbar-sec {
+  width: 80%;
+  height: 5vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20rpx 0;
+}
 .home-icon {
-  width: 60rpx;
-  height: 60rpx;
-  z-index: 2;
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
 }
 
-.profile-btn {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  float: left;
-  position: fixed;
-  bottom: 20rpx;
-  right: 20rpx;
-  width: 90rpx;
-  height: 90rpx;
-  z-index: 1;
-  background-color: rgba(240, 240, 240, 0.8);
-  border-radius: 4rpx;
-  box-shadow: 0 0 5rpx rgb(100, 100, 100);
-}
+
 
 .profile-icon {
-  width: 60rpx;
-  height: 60rpx;
-  z-index: 2;
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
+}
+
+.walk-icon {
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
+}
+
+
+.create-icon {
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
+}
+
+.border {
+  height: 5rpx;
+  border-top: 1rpx solid grey;
+  width: 100%;
 }

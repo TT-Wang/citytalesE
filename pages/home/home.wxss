@@ -176,7 +176,7 @@ margin: 0 26rpx !important; */
   margin: 0 25%;
   width: 50%;
   position: absolute;
-  bottom: 60rpx;
+  bottom: 15vh;
   height: 400rpx;
 }
 
@@ -240,7 +240,7 @@ margin: 0 26rpx !important; */
   align-items: center;
   float: left;
   position: fixed;
-  bottom: 120rpx;
+  bottom: 100rpx;
   left: 45%;
   width: 80rpx;
   height: 80rpx;
@@ -316,19 +316,22 @@ margin: 0 26rpx !important; */
   width:100%;
   height:100%;
   top:0px;
-  background:rgba(0,0,0,0.4);
+  background-color: #f4f4f420;
   overflow: hidden;
+  z-index: 100;
   }
 .t_w{
   position:relative;
-  bottom: 35rpx;
+  z-index: 100;
+  bottom: 50rpx;
   }
 .tanchu_view{
   width: 80%;
   margin: 20% auto;
   overflow: hidden;
-  background-color: #f4f4f490;
+  background-color: white;
   border-radius: 15rpx;
+  border: 2rpx solid #04B2D9;
   }
 
 
@@ -434,6 +437,7 @@ column-gap: 10rpx;
 margin-top: 100rpx;
 text-align: justify;
 padding: 10rpx;
+
 }
 
 .recommendation-hint {
@@ -455,3 +459,25 @@ padding: 10rpx;
 .right{
   float: right;
 } */
+
+.recomend-head {
+  width: 100vw;
+  height: 100rpx;
+  border-bottom: 1rpx solid #cfcfcf;
+  position: fixed;
+  background-color: #04B2D9;
+  top: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.masonary1 {
+column-count: 2;
+column-gap: 10rpx;
+margin-top: 100rpx;
+text-align: justify;
+padding: 10rpx;
+}
