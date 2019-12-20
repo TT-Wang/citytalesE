@@ -24,7 +24,7 @@
       </view>
       <view class="section">
         <view class="form-content">
-          <textarea class="content" style="width: 100%; height: 100%" placeholder-class="place-holder" value="{{content}}" placeholder="★ 写下你的城事" data-type="content" bindinput = "onChangeContent"></textarea>
+          <textarea class="content" maxlength="1000" style="width: 100%; height: 100%" placeholder-class="place-holder" value="{{content}}" placeholder="★ 写下你的城事" data-type="content" bindinput = "onChangeContent"></textarea>
         </view>
       </view>
 
