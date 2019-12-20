@@ -88,6 +88,9 @@
   margin: 20rpx;
 }
 
+.text {
+  margin-top: 5rpx;
+}
 .icon-cards {
   display: flex;
   align-items: center;

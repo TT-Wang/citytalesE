@@ -80,7 +80,7 @@
           <view data-id="{{item.id}}" bindtap="navigateToShow" >
             <wux-cell hover-class="none" >
               <image src="{{item.image}}" mode = "aspectFill" class="story-img"></image>
-              <text>{{idx+1}}.{{item.title}}</text>
+              <text class="text">{{idx+1}}.{{item.title}}</text>
             </wux-cell>
           </view>
         </view>

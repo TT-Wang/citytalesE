@@ -146,15 +146,16 @@ margin: 10rpx!important;
 }
 
 .user-info .user-name {
-  font-size: 36rpx;
-  font-weight: bold;
-  height: 50rpx;
+  font-size: 30rpx;
+  font-style: bold;
+  height: 70rpx;
 }
 
 .user-info .user-bio {
-  font-size: 28rpx;
+  font-size: 20rpx;
   font-weight: lighter;
-  height: 100rpx;
+  height: 70rpx;
+  margin-top: 5rpx;
 }
 
 .user-info .follows{
