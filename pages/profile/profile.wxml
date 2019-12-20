@@ -4,7 +4,7 @@
     <view class="user-info">
 
       <view class="user-name">{{user.custom_nickname || user.nickname}}</view>
-      <view class="user-bio">{{user.bio || "你的签名"}}</view>
+      <!-- <view class="user-bio">{{user.bio || "你的签名"}}</view> -->
 
       <view class="follows">
         <view class="liked">
@@ -25,9 +25,9 @@
         </view> -->
       </view>
     </view>
-    <view wx:if="{{apple}}" class="edit-icon">
+    <!-- <view wx:if="{{apple}}" class="edit-icon">
       <image class="edit-icon" bindtap="navigateToEditProfile" src="https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMM49dExGTDnr.gif"></image>
-    </view>
+    </view> -->
 </view>
 
 <view class="bar" wx:if="{{!apple}}">

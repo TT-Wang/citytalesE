@@ -14,7 +14,7 @@ Page({
     current_story: false,
     current: 0,
     currentMap: 0,
-    scale: 16,
+    scale: 13,
     latitude: 23.099994,
     longitude: 113.324520,
     markers: [],
