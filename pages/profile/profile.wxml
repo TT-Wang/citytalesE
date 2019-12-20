@@ -4,7 +4,7 @@
     <view class="user-info">
 
       <view class="user-name">{{user.custom_nickname || user.nickname}}</view>
-      <view class="user-bio">{{user.bio || "Please add your first bio"}}</view>
+      <view class="user-bio">{{user.bio || "你的签名"}}</view>
 
       <view class="follows">
         <view class="liked">
