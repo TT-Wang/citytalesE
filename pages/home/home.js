@@ -816,6 +816,7 @@ Page({
       this.setData({ user })
       this.getUserPreferences(user.id)
       this.setData({ flag: true })
+      this.setStories()
     } else {
       this.setStories()
     }
