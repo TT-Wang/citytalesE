@@ -212,8 +212,7 @@ this.setData({markers})
         }
       })
     } else {
-      let story = that.data.story
-      let peopleCommented = story.people_commented
+        let peopleCommented = that.data.comments.length
       
       peopleCommented += 1
 
@@ -238,7 +237,7 @@ this.setData({markers})
         date: that.data.dateNow
       }
 
-      if (that.data.comment.content.length <= that.data.min) {
+      if (that.data.comment.content.length < that.data.min) {
         wx.showToast({
           title: `字数不够`,
           icon: 'none'

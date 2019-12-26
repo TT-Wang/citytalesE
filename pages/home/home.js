@@ -389,7 +389,7 @@ Page({
 
     query.compare('created_at', '>', 0)
     query.compare('visible', '=', true)
-    Story.setQuery(query).limit(1000).find().then(res => {
+    Story.setQuery(query).expand(['comment']).limit(1000).find().then(res => {
       let stories = res.data.objects
       this.setData({stories})
       this.setMarkers(res.data.objects)
@@ -816,6 +816,7 @@ Page({
       this.setData({ user })
       this.getUserPreferences(user.id)
       this.setData({ flag: true })
+      this.setStories()
     } else {
       this.setStories()
     }
