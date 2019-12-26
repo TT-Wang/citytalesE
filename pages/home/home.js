@@ -497,11 +497,11 @@ Page({
           })
           console.log("filteredByTopTags ---->", filteredByTopTags)
           let filteredByProximity = filteredByTopTags.filter(function (item) {
-            return (item.distance < 20000)
+            return (item.distance < 200000)
           })
           console.log("filteredByProximity ---->", filteredByProximity)
           let filteredForRecommendation = filteredByProximity.filter(function (item) {
-            return (item.people_liked > 5)
+            return (item.people_liked > 0)
           })
           console.log("filteredForRecommendation pre sort---->", filteredForRecommendation)
           filteredForRecommendation.sort((a, b) => b.people_liked - a.people_liked)
@@ -526,12 +526,14 @@ Page({
   setDisplayDistance: function (stories) {
     stories.forEach((story) => {
       let distance = story.distance
-      if (distance < 1000){
+      if (distance < 1000 && distance >0 ){
         story.display_distance = `${distance} m`
-      } else if (distance < 10000) {
+      } else if (distance < 10000 && distance > 0 ) {
         story.display_distance = `${(Math.round(distance/100))/10} km`
-      } else if (distance < 100000) {
+      } else if (distance < 100000 && distance > 0 ) {
         story.display_distance = `${(Math.round(distance / 1000))} km`
+      } else if (distance < 0) {
+        story.display_distance = '100 km+'
       } else {
         story.display_distance = '100 km+'
       }

@@ -35,7 +35,7 @@
           </label>
         </checkbox-group>
 
-        <view class="submit-btn"bindtap="eventStorySubmit">发布</view>
+        <view class="submit-btn"bindtap="formCheckAndSubmit">发布</view>
       </view>
     </view>
 
