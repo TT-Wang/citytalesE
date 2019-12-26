@@ -239,7 +239,7 @@ this.setData({markers})
         let peopleCommented = that.data.comments.length
         peopleCommented += 1
         let Story = new wx.BaaS.TableObject('story')
-        let dbStory = Story.getWithoutData(story.id)
+        let dbStory = Story.getWithoutData(that.data.story.id)
         dbStory.set("people_commented", peopleCommented)
         dbStory.update().then(res => {
           let story = res.data
