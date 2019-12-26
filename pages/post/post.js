@@ -10,7 +10,8 @@ Page({
       address: undefined,
       latitude: undefined,
       longitude: undefined,
-      posted_date: undefined
+      posted_date: undefined,
+      tag: undefined
     },
     dateNow: undefined,
     items: [
@@ -42,7 +43,7 @@ Page({
 
   checkboxChange: function (e) {
     this.setData({
-      "event.tag": e.detail.value
+      "story.tag": e.detail.value
     })
     console.log(this.data.event.tag)
   },
@@ -115,6 +116,38 @@ Page({
     })
   },
 
+formCheckAndSubmit: function () {
+  if (this.data.story.title === undefined) {
+    wx.showToast({
+      title: '标题不能为空',
+      icon: 'none',
+    })
+  } else if (this.data.story.content === undefined) {
+    wx.showToast({
+      title: '内容不能为空',
+      icon: 'none',
+    })
+  } else if (this.data.story.image === undefined) {
+    wx.showToast({
+      title: '照片不能为空',
+      icon: 'none',
+    })
+  } else if (this.data.story.address === undefined) {
+    wx.showToast({
+      title: '地址不能为空',
+      icon: 'none',
+    })
+  } else if (this.data.story.tag === undefined){
+    wx.showToast({
+      title: '标签不能为空',
+      icon: 'none',
+    })
+  } else {
+    this.eventStorySubmit()
+  }
+},
+
+
   eventStorySubmit: function (e) {
     let tableName = 'story'
     let Story = new wx.BaaS.TableObject(tableName)
@@ -134,23 +167,26 @@ Page({
       avatar: this.data.user.avatar,
       nickname:this.data.user.nickname,
       posted_date:this.data.dateNow,
-      tags: this.data.event.tag
+      tags: this.data.story.tag
     }
     console.log('My event package ----->', newStory)
 
-    story.set(newStory).save().then(res => {
-      // success
-      console.log("My upload package----->", res)
-      wx.showToast({
-        title: 'Posted',
-        icon: 'success',
+      story.set(newStory).save().then(res => {
+        // success
+        console.log("My upload package----->", res)
+        wx.showToast({
+          title: 'Posted',
+          icon: 'success',
+        })
+        wx.reLaunch({
+          url: '/pages/home/home',
+        })
+      }, err => {
+        wx.showToast({
+          title: 'Network error',
+          icon: 'loading',
+        })
       })
-      wx.reLaunch({
-        url: '/pages/home/home',
-      })
-    }, err => {
-      //err 为 HError 对象
-    })
   },
 
   getMapLocation: function () {

@@ -40,8 +40,8 @@ Page({
 
     user: {id: undefined},
 
-    texts: "至少5个字",
-    min: 5,//最少字数
+    texts: "至少2个字",
+    min: 2,//最少字数
     max: 150, //最多字数 (根据自己需求改变)
 
     focusInput: false,
@@ -212,20 +212,7 @@ this.setData({markers})
         }
       })
     } else {
-        let peopleCommented = that.data.comments.length
-      
-      peopleCommented += 1
-
-      let Story = new wx.BaaS.TableObject('story')
-      let dbStory = Story.getWithoutData(story.id)
-      
-      dbStory.set("people_commented", peopleCommented)
-      dbStory.update().then(res => {
-        let story = res.data
-        story = that.setDisplayDate(story) // (3) add display data format for Story object
-        that.setData({ story }) // (4) set updated Story object in local page data
-      }, err => {
-      })
+     
 
       let Comment = new wx.BaaS.TableObject('comment')
       let comment = Comment.create()
@@ -248,6 +235,19 @@ this.setData({markers})
           icon: 'none'
         })
       } else {
+
+        let peopleCommented = that.data.comments.length
+        peopleCommented += 1
+        let Story = new wx.BaaS.TableObject('story')
+        let dbStory = Story.getWithoutData(story.id)
+        dbStory.set("people_commented", peopleCommented)
+        dbStory.update().then(res => {
+          let story = res.data
+          story = that.setDisplayDate(story) // (3) add display data format for Story object
+          that.setData({ story }) // (4) set updated Story object in local page data
+        }, err => {
+        })
+
         comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
           that.getComments(that.data.story.id) // (7) get comments from DB
         }, err => console.log(err))

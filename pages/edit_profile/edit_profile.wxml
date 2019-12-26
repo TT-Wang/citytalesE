@@ -1,0 +1,14 @@
+<view class="page__container" wx:if="{{apple}}">
+  <view class="form-flexbox">
+    <view class="title">昵称</view>
+
+    <input class="input" value="{{user.custom_nickname}}" placeholder="填写您的昵称" bindinput = "onChangeName"></input>
+  </view>
+
+  <view class="form-flexbox">
+    <view class="title">个性签名</view>
+    <input class="input" value="{{user.bio}}" placeholder="填写个人介绍" bindinput = "onChangeBio"></input>
+  </view>
+  <view class="edit-btn" bindtap="eventPackageSubmit">保存</view>
+</view>
+

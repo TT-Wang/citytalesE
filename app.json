@@ -7,8 +7,10 @@
     "pages/post/post",
     "pages/userprofile/userprofile",
     "pages/walks/walks",
-    "pages/show_walk/show_walk"
+    "pages/show_walk/show_walk",
+    "pages/edit_profile/edit_profile"
   ],
+  
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
